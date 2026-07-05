@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "private": true,
   "scripts": {
-    "build": "esbuild src/app.jsx --bundle --minify --format=iife --outfile=docs/app.js"
+    "build": "esbuild src/app.jsx --bundle --minify --format=iife --jsx=automatic --outfile=docs/app.js"
   },
   "devDependencies": {
     "esbuild": "^0.24.0"
