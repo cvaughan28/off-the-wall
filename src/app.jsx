@@ -30,104 +30,140 @@ const NO_WEIGHT = ["sideplank", "copenhagen", "m-plank", "d-hollow"];
 
 const ST = "#5BD0D0"; // stretch cyan
 
-// Stretch library — routines reference these by id with their own hold times
+// Stretch library — routines reference these by id with their own hold times.
+// cue = on-screen text; voice = the longer coach script spoken at the start of the hold.
 const STRETCH_LIB = {
   fold: { name: "Standing Forward Fold", side: false, fig: "fold",
-    cue: "Hinge at the hips and hang heavy. Bend the knees as much as you need. Let gravity do the work." },
+    cue: "Hinge at the hips and hang heavy. Bend the knees as much as you need. Let gravity do the work.",
+    voice: "Standing forward fold. Hinge at your hips and just hang. Bend your knees as much as you like — this isn't a test. With every exhale, let your head get a little heavier, and the hamstrings will open right up." },
   couch: { name: "Couch Stretch", side: true, fig: "couch",
-    cue: "Rear shin up against the wall or bench, front foot planted. Squeeze the glute and stay tall. Hip flexors and quad." },
+    cue: "Rear shin up against the wall or bench, front foot planted. Squeeze the glute and stay tall. Hip flexors and quad.",
+    voice: "Couch stretch. Rear shin up against the wall, front foot planted. Squeeze that back glute and lift your chest tall — you should feel it right down the front of the hip and quad. If it's loud, back off an inch and just breathe." },
   pigeon: { name: "Half Pigeon", side: true, fig: "pigeon",
-    cue: "Front shin folded across, back leg long behind you. Square the hips and slowly fold forward. Settle in — this one rewards patience." },
+    cue: "Front shin folded across, back leg long behind you. Square the hips and slowly fold forward. Settle in — this one rewards patience.",
+    voice: "Half pigeon. Fold your front shin across the mat, and stretch that back leg long behind you. Square your hips, then slowly melt forward. This one rewards patience — don't force it, just wait for it." },
   butterfly: { name: "Butterfly", side: false, fig: "butterfly",
-    cue: "Soles of the feet together, knees heavy toward the floor. Long spine, gentle fold. Breathe into the inner thighs." },
+    cue: "Soles of the feet together, knees heavy toward the floor. Long spine, gentle fold. Breathe into the inner thighs.",
+    voice: "Butterfly. Soles of your feet together, and let the knees fall heavy toward the floor. Sit up tall first, then fold forward gently. Send your breath into the inner thighs." },
   straddle: { name: "Seated Straddle", side: false, fig: "straddle",
-    cue: "Legs wide, kneecaps pointing up. Walk the hands forward and settle in. Sink a little deeper with every exhale." },
+    cue: "Legs wide, kneecaps pointing up. Walk the hands forward and settle in. Sink a little deeper with every exhale.",
+    voice: "Seated straddle. Legs wide, kneecaps pointing at the ceiling. Walk your hands forward and settle in where it's honest work — not pain. Sink a little deeper with every exhale." },
   twist: { name: "Lying Spinal Twist", side: true, fig: "twist",
-    cue: "On your back, drop the knee across the body. Both shoulders stay heavy on the floor. Look the other way." },
+    cue: "On your back, drop the knee across the body. Both shoulders stay heavy on the floor. Look the other way.",
+    voice: "Lying spinal twist. On your back, drop the knee across your body, and look the other way. Keep both shoulders heavy on the floor, and let your spine slowly unwind." },
   figure4: { name: "Supine Figure 4", side: true, fig: "figure4",
-    cue: "On your back, ankle over the opposite knee, pull the bottom thigh toward you. Glutes without the knee pressure of pigeon." },
+    cue: "On your back, ankle over the opposite knee, pull the bottom thigh toward you. Glutes without the knee pressure of pigeon.",
+    voice: "Supine figure four. Cross the ankle over the opposite knee, and pull that bottom thigh in toward your chest. All the glute payoff of pigeon, none of the knee complaints. Flex the top foot and let your neck relax." },
   puppy: { name: "Puppy Pose", side: false, fig: "puppy",
-    cue: "Knees under hips, arms walked far forward, chest melting to the floor. This is your lat stretch. Let the armpits sink." },
+    cue: "Knees under hips, arms walked far forward, chest melting to the floor. This is your lat stretch. Let the armpits sink.",
+    voice: "Puppy pose. Knees under your hips, walk the arms way out in front, and let your chest melt toward the floor. This is your lat stretch — let the armpits sink. Climbers live here." },
   threadneedle: { name: "Thread the Needle", side: true, fig: "threadneedle",
-    cue: "On all fours, slide one arm under and across, shoulder and ear to the floor. Breathe into the upper back." },
+    cue: "On all fours, slide one arm under and across, shoulder and ear to the floor. Breathe into the upper back.",
+    voice: "Thread the needle. From all fours, slide one arm underneath and across, resting your shoulder and ear on the floor. Breathe into the back of the shoulder blade, and let the upper back finally let go." },
   chest: { name: "Floor Chest Opener", side: true, fig: "chest",
-    cue: "Face down, arm out to the side, palm down. Slowly roll your body toward that arm and stack the legs. Deep front-of-shoulder opening." },
+    cue: "Face down, arm out to the side, palm down. Slowly roll your body toward that arm and stack the legs. Deep front-of-shoulder opening.",
+    voice: "Floor chest opener. Face down, one arm out to the side, palm down. Now roll your body slowly toward that arm and stack your legs. This opens deep into the front of the shoulder — go gently, it sneaks up on you." },
   doorway: { name: "Doorway Pec Stretch", side: false, fig: "doorway",
-    cue: "Forearms on the door frame, elbows at shoulder height. Step through slowly until the chest opens. Breathe wide." },
+    cue: "Forearms on the door frame, elbows at shoulder height. Step through slowly until the chest opens. Breathe wide.",
+    voice: "Doorway pec stretch. Forearms on the door frame, elbows at shoulder height. Step through slowly until your chest opens up. Stand proud and breathe wide." },
   crossbody: { name: "Cross-Body Shoulder", side: true, fig: "crossbody",
-    cue: "Pull one arm across the chest with the other. Keep the shoulder pulled down away from the ear." },
+    cue: "Pull one arm across the chest with the other. Keep the shoulder pulled down away from the ear.",
+    voice: "Cross-body shoulder stretch. Pull one arm across your chest and hug it in. Keep that shoulder pulled down, away from your ear. Easy pressure, steady breath." },
   forearm: { name: "Forearm Flexor Stretch", side: true, fig: "forearm",
-    cue: "Arm straight, palm up. Pull the fingers back and down with the other hand. Pay the grip debt from the wall." },
+    cue: "Arm straight, palm up. Pull the fingers back and down with the other hand. Pay the grip debt from the wall.",
+    voice: "Forearm flexor stretch. Arm straight out, palm up, and pull the fingers back and down with your other hand. This is you paying the grip debt from the wall. Keep it gentle and constant." },
   extensor: { name: "Forearm Extensor Stretch", side: true, fig: "forearm",
-    cue: "Arm straight, palm down, fingers toward the floor. Pull the back of the hand toward you. The other half of the grip debt." },
+    cue: "Arm straight, palm down, fingers toward the floor. Pull the back of the hand toward you. The other half of the grip debt.",
+    voice: "Forearm extensor stretch. Arm straight, palm down, fingers pointing at the floor. Pull the back of your hand toward you. The other half of the grip debt — your elbows will thank you." },
   prayer: { name: "Prayer Wrist Stretch", side: false, fig: "prayer",
-    cue: "Palms together at the chest, elbows wide. Slowly lower the hands until the wrists and forearms speak up." },
+    cue: "Palms together at the chest, elbows wide. Slowly lower the hands until the wrists and forearms speak up.",
+    voice: "Prayer stretch. Palms together at your chest, elbows out wide. Slowly lower your hands until the wrists start to speak up. Stop right there, and hold the conversation." },
   chintuck: { name: "Chin Tuck Hold", side: false, fig: "chintuck",
-    cue: "Lying on your back. Draw the chin straight back — make a double chin — lengthening the back of the neck. Gentle, constant pressure. This is the forward-head fix." },
+    cue: "Lying on your back. Draw the chin straight back — make a double chin — lengthening the back of the neck. Gentle, constant pressure. This is the forward-head fix.",
+    voice: "Chin tuck hold. Lying on your back, draw your chin straight back — yes, give yourself a double chin — and feel the back of your neck get long. Gentle, constant pressure. This is the forward-head fix." },
   uppertrap: { name: "Upper Trap Stretch", side: true, fig: "uppertrap",
-    cue: "Sitting tall, drop one ear toward the shoulder. Add gentle hand pressure over the top. Keep the opposite shoulder heavy." },
+    cue: "Sitting tall, drop one ear toward the shoulder. Add gentle hand pressure over the top. Keep the opposite shoulder heavy.",
+    voice: "Upper trap stretch. Sit up tall and drop one ear toward your shoulder. Add just the weight of your hand over the top — no yanking. Keep the opposite shoulder heavy." },
   levator: { name: "Levator Scap Stretch", side: true, fig: "uppertrap",
-    cue: "Turn your nose toward one armpit and gently draw the head down and forward. Feel the back corner of the neck release." },
+    cue: "Turn your nose toward one armpit and gently draw the head down and forward. Feel the back corner of the neck release.",
+    voice: "Levator scap stretch. Turn your nose toward your armpit, then gently draw your head down and forward. Right in the back corner of the neck — that's the spot that hates your desk." },
   thoracic: { name: "Thoracic Extension", side: false, fig: "thoracic",
-    cue: "Upper back over the edge of the bench, hands behind head. Extend backward over it and breathe. This un-hunches the desk." },
+    cue: "Upper back over the edge of the bench, hands behind head. Extend backward over it and breathe. This un-hunches the desk.",
+    voice: "Thoracic extension. Upper back over the edge of the bench, hands behind your head. Arch backward over it and breathe. Let every exhale buy you a little more — this un-hunches the desk." },
   wallangel: { name: "Wall Angels", side: false, fig: "wallangel",
-    cue: "Back flat against the wall, arms in a goalpost. Slide slowly up and down, keeping wrists and elbows on the wall the whole hold." },
+    cue: "Back flat against the wall, arms in a goalpost. Slide slowly up and down, keeping wrists and elbows on the wall the whole hold.",
+    voice: "Wall angels. Back flat against the wall, arms up in a goalpost. Slide slowly up and down, keeping wrists and elbows glued to the wall the whole time. Harder than it looks — that's the point." },
   sphinx: { name: "Sphinx Pose", side: false, fig: "sphinx",
-    cue: "Face down, propped on forearms, hips heavy. Let the chest lift and the front of the body lengthen." },
+    cue: "Face down, propped on forearms, hips heavy. Let the chest lift and the front of the body lengthen.",
+    voice: "Sphinx pose. Face down, propped up on your forearms, hips staying heavy on the floor. Lift your chest and let the whole front of your body lengthen. Soft shoulders, slow breath." },
   child: { name: "Child's Pose", side: false, fig: "child",
-    cue: "Knees wide, big toes together, arms long. Slow the breath all the way down." },
+    cue: "Knees wide, big toes together, arms long. Slow the breath all the way down.",
+    voice: "Child's pose. Knees wide, big toes together, arms long out in front. There's nothing to chase here — just let your breath slow all the way down." },
 };
 
-// Routines: long Pliability-style holds. secs is per side for bilateral stretches.
+// Routines: Pliability-style holds, ~15 min with transitions. secs is per side for bilateral stretches.
 const ROUTINES = {
   lower: {
     key: "lower", name: "Lower Body", sub: "Hips, hamstrings, IT-band line",
     items: [
-      { id: "fold", secs: 120 }, { id: "couch", secs: 120 }, { id: "pigeon", secs: 120 },
-      { id: "butterfly", secs: 150 }, { id: "straddle", secs: 180 }, { id: "twist", secs: 90 },
+      { id: "fold", secs: 90 }, { id: "couch", secs: 90 }, { id: "pigeon", secs: 90 },
+      { id: "butterfly", secs: 90 }, { id: "straddle", secs: 120 }, { id: "twist", secs: 60 },
     ],
   },
   upper: {
     key: "upper", name: "Upper Body", sub: "Lats, shoulders, chest, forearms",
     items: [
-      { id: "puppy", secs: 150 }, { id: "threadneedle", secs: 120 }, { id: "chest", secs: 90 },
-      { id: "crossbody", secs: 90 }, { id: "forearm", secs: 90 }, { id: "extensor", secs: 60 },
-      { id: "child", secs: 120 },
+      { id: "puppy", secs: 90 }, { id: "threadneedle", secs: 75 }, { id: "chest", secs: 60 },
+      { id: "crossbody", secs: 60 }, { id: "forearm", secs: 60 }, { id: "extensor", secs: 45 },
+      { id: "child", secs: 75 },
     ],
   },
   recovery: {
     key: "recovery", name: "Climb Recovery", sub: "Post-session — forearms, lats, glutes",
     items: [
-      { id: "forearm", secs: 120 }, { id: "extensor", secs: 90 }, { id: "prayer", secs: 90 },
-      { id: "puppy", secs: 150 }, { id: "threadneedle", secs: 90 }, { id: "figure4", secs: 90 },
-      { id: "child", secs: 120 },
+      { id: "forearm", secs: 75 }, { id: "extensor", secs: 60 }, { id: "prayer", secs: 60 },
+      { id: "puppy", secs: 90 }, { id: "threadneedle", secs: 60 }, { id: "figure4", secs: 60 },
+      { id: "child", secs: 75 },
     ],
   },
   posture: {
     key: "posture", name: "Posture Reset", sub: "Forward head, rounded shoulders",
     items: [
-      { id: "chintuck", secs: 90 }, { id: "uppertrap", secs: 90 }, { id: "levator", secs: 90 },
-      { id: "thoracic", secs: 150 }, { id: "chest", secs: 120 }, { id: "doorway", secs: 120 },
-      { id: "wallangel", secs: 120 }, { id: "sphinx", secs: 120 },
+      { id: "chintuck", secs: 60 }, { id: "uppertrap", secs: 60 }, { id: "levator", secs: 60 },
+      { id: "thoracic", secs: 90 }, { id: "chest", secs: 75 }, { id: "doorway", secs: 75 },
+      { id: "wallangel", secs: 75 }, { id: "sphinx", secs: 75 },
     ],
   },
   quick: {
     key: "quick", name: "Quick Win", sub: "Ten minutes, biggest bang",
     items: [
-      { id: "couch", secs: 90 }, { id: "fold", secs: 90 }, { id: "puppy", secs: 90 },
-      { id: "doorway", secs: 90 }, { id: "forearm", secs: 60 }, { id: "twist", secs: 60 },
+      { id: "couch", secs: 60 }, { id: "fold", secs: 60 }, { id: "puppy", secs: 60 },
+      { id: "doorway", secs: 60 }, { id: "forearm", secs: 45 }, { id: "twist", secs: 45 },
     ],
   },
 };
 
+// transition segments between holds: move to a new stretch vs. switch sides of the same one
+const TRANSITION_SECS = 15;
+const SWITCH_SECS = 10;
+const GETSET_SECS = 10;
+
 const routineQueue = (r) => {
-  const q = [];
+  const holds = [];
   r.items.forEach(({ id, secs }) => {
     const s = STRETCH_LIB[id];
     if (s.side) {
-      q.push({ ...s, id, secs, label: "Left side" });
-      q.push({ ...s, id, secs, label: "Right side" });
-    } else q.push({ ...s, id, secs, label: null });
+      holds.push({ ...s, id, secs, label: "Left side", type: "hold" });
+      holds.push({ ...s, id, secs, label: "Right side", type: "hold" });
+    } else holds.push({ ...s, id, secs, label: null, type: "hold" });
+  });
+  const q = [];
+  holds.forEach((h, i) => {
+    if (i === 0) q.push({ type: "move", secs: GETSET_SECS, next: h, first: true });
+    else if (h.id === holds[i - 1].id && h.label === "Right side")
+      q.push({ type: "move", secs: SWITCH_SECS, next: h, switchSide: true });
+    else q.push({ type: "move", secs: TRANSITION_SECS, next: h });
+    q.push(h);
   });
   return q;
 };
@@ -585,19 +621,53 @@ function speak(text, enabled) {
 }
 
 let audioCtx = null;
+function getCtx() {
+  audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
 function chime() {
   try {
-    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
+    const ctx = getCtx();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
     o.connect(g);
-    g.connect(audioCtx.destination);
+    g.connect(ctx.destination);
     o.frequency.value = 660;
-    g.gain.setValueAtTime(0.15, audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.7);
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
     o.start();
-    o.stop(audioCtx.currentTime + 0.7);
+    o.stop(ctx.currentTime + 0.7);
   } catch (e) {}
+}
+// one synthesized drum hit — a sine wave whose pitch drops fast, like a soft floor tom
+function drumHit(delay, f0, f1, dur, vol) {
+  try {
+    const ctx = getCtx();
+    const t = ctx.currentTime + delay;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "sine";
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.frequency.setValueAtTime(f0, t);
+    o.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.7);
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.start(t);
+    o.stop(t + dur);
+  } catch (e) {}
+}
+// heartbeat double-thump — 30 seconds left in the hold
+function warnDrum() {
+  drumHit(0, 130, 45, 0.4, 0.5);
+  drumHit(0.45, 130, 45, 0.4, 0.35);
+}
+// rising three-hit roll — hold complete
+function endDrum() {
+  drumHit(0, 110, 40, 0.35, 0.5);
+  drumHit(0.28, 160, 60, 0.3, 0.45);
+  drumHit(0.56, 220, 85, 0.45, 0.4);
 }
 
 function StretchPlayer({ routine, onFinish, onExit }) {
@@ -614,11 +684,19 @@ function StretchPlayer({ routine, onFinish, onExit }) {
 
   const cur = qi >= 0 && qi < queue.length ? queue[qi] : null;
 
-  const announce = (item) => {
-    speak(
-      `${item.name}${item.label ? ", " + item.label.toLowerCase() : ""}. ${item.cue}`,
-      voiceRef.current
-    );
+  // spoken intro for a transition segment
+  const introFor = (seg) => {
+    const h = seg.next;
+    const side = h.label ? ", " + h.label.toLowerCase() : "";
+    if (seg.first) return `First up: ${h.name}${side}. Get set.`;
+    if (seg.switchSide) return `Nice. Switch sides — ${h.name}${side}.`;
+    return `Nice work. Shake it out. Coming up: ${h.name}${side}.`;
+  };
+
+  const enterSeg = (i) => {
+    const seg = queue[i];
+    if (seg.type === "move") speak(introFor(seg), voiceRef.current);
+    else speak(seg.voice || seg.cue, voiceRef.current);
   };
 
   const start = async () => {
@@ -628,7 +706,7 @@ function StretchPlayer({ routine, onFinish, onExit }) {
     chime();
     setQi(0);
     setLeft(queue[0].secs);
-    announce(queue[0]);
+    enterSeg(0);
   };
 
   // countdown
@@ -636,17 +714,19 @@ function StretchPlayer({ routine, onFinish, onExit }) {
     if (qi < 0 || paused || doneFlag) return;
     const t = setInterval(() => {
       setLeft((l) => {
-        if (l === 11) speak("Ten seconds", voiceRef.current);
+        const seg = queue[qi];
+        if (seg.type === "hold" && l === 31 && seg.secs > 40) warnDrum();
+        if (seg.type === "hold" && l === 11) speak("Ten seconds", voiceRef.current);
         if (l <= 1) {
+          if (seg.type === "hold") endDrum();
           const next = qi + 1;
-          chime();
           if (next >= queue.length) {
             speak("Session complete. Nice work.", voiceRef.current);
             setDoneFlag(true);
             return 0;
           }
           setQi(next);
-          announce(queue[next]);
+          enterSeg(next);
           return queue[next].secs;
         }
         return l - 1;
@@ -663,12 +743,14 @@ function StretchPlayer({ routine, onFinish, onExit }) {
     };
   }, []);
 
+  // skip jumps between holds, stepping over transition segments
   const skip = (dir) => {
-    const next = qi + dir;
-    if (next < 0 || next >= queue.length) return;
-    setQi(next);
-    setLeft(queue[next].secs);
-    announce(queue[next]);
+    let i = qi + dir;
+    while (i >= 0 && i < queue.length && queue[i].type !== "hold") i += dir;
+    if (i < 0 || i >= queue.length) return;
+    setQi(i);
+    setLeft(queue[i].secs);
+    enterSeg(i);
   };
 
   const totalDone = queue.slice(0, Math.max(qi, 0)).reduce((a, s) => a + s.secs, 0) + (cur ? cur.secs - left : 0);
@@ -694,8 +776,9 @@ function StretchPlayer({ routine, onFinish, onExit }) {
         <div className="sp-ready">
           <div className="dc-name" style={{ color: ST, fontSize: 26 }}>{routine.name}</div>
           <p style={{ color: C.dim, marginTop: 8, fontSize: 14.5, lineHeight: 1.5 }}>
-            {routine.sub}. {mins} minutes · {routine.items.length} stretches · long passive holds.
-            Voice guides you through — no need to look at the screen. Find some floor.
+            {routine.sub}. {mins} minutes · {routine.items.length} stretches · guided holds with
+            transition breaks between them. Voice coaches you through each one — no need to look
+            at the screen. Find some floor.
           </p>
           <label className="voice-toggle">
             <input type="checkbox" checked={voice} onChange={(e) => setVoice(e.target.checked)} />
@@ -708,24 +791,40 @@ function StretchPlayer({ routine, onFinish, onExit }) {
       </div>
     );
 
+  const isMove = cur.type === "move";
+  const show = isMove ? cur.next : cur; // during a transition, preview the upcoming stretch
+  const nextHold = queue.slice(qi + 1).find((s) => s.type === "hold");
+  const hasPrevHold = queue.slice(0, qi).some((s) => s.type === "hold");
+
   return (
     <div className="sp-wrap">
       <div className="sp-progress">
         <div className="sp-bar" style={{ width: `${(totalDone / totalAll) * 100}%`, background: ST }} />
       </div>
-      <div className="sp-count" style={{ color: ST }}>{left}</div>
-      <div className="sp-name">{cur.name}</div>
-      {cur.label && <div className="sp-side" style={{ color: ST }}>{cur.label}</div>}
-      <div className="sp-fig"><StretchFigure kind={cur.fig} /></div>
-      <div className="sp-cue">{cur.cue}</div>
-      <div className={"sp-breathe" + (paused ? " still" : "")}>breathe slow — long exhales</div>
+      <div className="sp-count" style={{ color: isMove ? C.dim : ST }}>{left}</div>
+      {isMove && (
+        <div className="sp-side" style={{ color: C.tape }}>
+          {cur.switchSide ? "switch sides" : "get set — up next"}
+        </div>
+      )}
+      <div className="sp-name">{show.name}</div>
+      {show.label && <div className="sp-side" style={{ color: ST }}>{show.label}</div>}
+      <div className="sp-fig"><StretchFigure kind={show.fig} /></div>
+      <div className="sp-cue">{show.cue}</div>
+      <div className={"sp-breathe" + (paused || isMove ? " still" : "")}>
+        {isMove ? "move into position" : "breathe slow — long exhales"}
+      </div>
       <div className="sp-controls">
-        <button className="ghost" onClick={() => skip(-1)} disabled={qi === 0}>‹ prev</button>
+        <button className="ghost" onClick={() => skip(-1)} disabled={!hasPrevHold}>‹ prev</button>
         <button className="ghost sp-pause" onClick={() => setPaused(!paused)}>{paused ? "resume" : "pause"}</button>
-        <button className="ghost" onClick={() => skip(1)}>next ›</button>
+        <button className="ghost" onClick={() => skip(1)} disabled={!nextHold}>next ›</button>
       </div>
       <div className="sp-upnext">
-        {qi + 1 < queue.length ? `up next: ${queue[qi + 1].name}${queue[qi + 1].label ? " — " + queue[qi + 1].label.toLowerCase() : ""}` : "last one"}
+        {isMove
+          ? `${show.secs}s hold`
+          : nextHold
+          ? `up next: ${nextHold.name}${nextHold.label ? " — " + nextHold.label.toLowerCase() : ""}`
+          : "last one"}
       </div>
       <button className="back" style={{ marginTop: 18 }} onClick={onExit}>exit (nothing saved)</button>
     </div>
@@ -962,9 +1061,16 @@ function Heatmap({ sessions }) {
 
 /* ---------------- Exercise card ---------------- */
 
-function ExerciseCard({ ex, color, done, onToggle, weight, lastWeight, onWeight }) {
+function ExerciseCard({ ex, color, done, onToggle, weight, reps, lastWeight, lastReps, onWeight, onReps }) {
   const [open, setOpen] = useState(false);
   const takesWeight = !NO_WEIGHT.includes(ex.id);
+  const lastLine = lastWeight && lastReps
+    ? `${lastWeight} lb × ${lastReps}`
+    : lastWeight
+    ? `${lastWeight} lb`
+    : lastReps
+    ? `${lastReps} reps`
+    : null;
   return (
     <div className={"ex-card" + (done ? " done" : "")}>
       <div className="ex-head">
@@ -984,11 +1090,11 @@ function ExerciseCard({ ex, color, done, onToggle, weight, lastWeight, onWeight 
           <div className="ex-name">{ex.name}</div>
           <div className="ex-sets">
             {ex.sets}
-            {takesWeight && lastWeight ? <span className="last-wt"> · last: {lastWeight} lb</span> : null}
+            {lastLine ? <span className="last-wt"> · last: {lastLine}</span> : null}
           </div>
         </div>
-        {takesWeight && (
-          <div className="wt-wrap">
+        <div className="wt-wrap">
+          {takesWeight && (
             <input
               className="wt"
               type="number"
@@ -999,8 +1105,18 @@ function ExerciseCard({ ex, color, done, onToggle, weight, lastWeight, onWeight 
               onChange={(e) => onWeight(e.target.value)}
               aria-label={`Weight used for ${ex.name} in pounds`}
             />
-          </div>
-        )}
+          )}
+          <input
+            className="wt"
+            type="number"
+            inputMode="numeric"
+            min="0"
+            placeholder={lastReps || "reps"}
+            value={reps || ""}
+            onChange={(e) => onReps(e.target.value)}
+            aria-label={`Reps completed for ${ex.name}`}
+          />
+        </div>
         <button className="how" onClick={() => setOpen(!open)} aria-expanded={open}>
           {open ? "close" : "how?"}
         </button>
@@ -1034,6 +1150,7 @@ export default function OffTheWall() {
   const [activeDay, setActiveDay] = useState(null);
   const [checked, setChecked] = useState({});
   const [weights, setWeights] = useState({});
+  const [repsIn, setRepsIn] = useState({});
   const [activeRoutine, setActiveRoutine] = useState(null);
   const [newBadges, setNewBadges] = useState([]);
 
@@ -1059,20 +1176,26 @@ export default function OffTheWall() {
     setActiveDay(dayKey);
     setChecked({});
     setWeights({});
+    setRepsIn({});
     setView("session");
   };
 
   const finishSession = async () => {
-    // keep only weights for exercises that were actually checked off
+    // keep only weights/reps for exercises that were actually checked off
     const usedWeights = {};
     Object.entries(weights).forEach(([id, w]) => {
       if (checked[id] && w) usedWeights[id] = w;
     });
-    const session = { date: new Date().toISOString(), day: activeDay, weights: usedWeights };
+    const usedReps = {};
+    Object.entries(repsIn).forEach(([id, r]) => {
+      if (checked[id] && r) usedReps[id] = r;
+    });
+    const session = { date: new Date().toISOString(), day: activeDay, weights: usedWeights, reps: usedReps };
     const next = {
       ...data,
       sessions: [...sessions, session],
       lastWeights: { ...(data.lastWeights || {}), ...usedWeights },
+      lastReps: { ...(data.lastReps || {}), ...usedReps },
     };
     const fresh = [];
     BADGES.forEach((b) => {
@@ -1166,8 +1289,8 @@ export default function OffTheWall() {
         .ex-name { font-weight:600; font-size:15.5px; }
         .ex-sets { color:${C.dim}; font-size:12.5px; font-family:var(--mono); margin-top:1px; }
         .how { background:none; border:1px solid ${C.line}; color:${C.dim}; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-family:var(--body); }
-        .wt-wrap { position:relative; }
-        .wt { width:58px; background:${C.bg}; border:1px solid ${C.line}; color:${C.chalk}; border-radius:6px; padding:6px 6px; font-family:var(--mono); font-size:14px; text-align:center; }
+        .wt-wrap { display:flex; gap:6px; }
+        .wt { width:52px; background:${C.bg}; border:1px solid ${C.line}; color:${C.chalk}; border-radius:6px; padding:6px 4px; font-family:var(--mono); font-size:14px; text-align:center; }
         .wt::placeholder { color:${C.dim}; opacity:.7; }
         .wt:focus { outline:none; border-color:${C.tape}; }
         .last-wt { color:${C.tape}; }
@@ -1293,8 +1416,11 @@ export default function OffTheWall() {
                 done={!!checked[ex.id]}
                 onToggle={() => setChecked((c) => ({ ...c, [ex.id]: !c[ex.id] }))}
                 weight={weights[ex.id]}
+                reps={repsIn[ex.id]}
                 lastWeight={(data.lastWeights || {})[ex.id]}
+                lastReps={(data.lastReps || {})[ex.id]}
                 onWeight={(w) => setWeights((ws) => ({ ...ws, [ex.id]: w }))}
+                onReps={(r) => setRepsIn((rs) => ({ ...rs, [ex.id]: r }))}
               />
             ))}
 
